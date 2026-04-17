@@ -167,10 +167,9 @@ export const ATLA_GRAPH: Record<string, ConceptNode> = {
 // ==========================================
 // File: src/App.tsx
 // ==========================================
-import React, { useState } from 'react';
-import { Network, GitCompare, PenTool, BookOpen, Clock } from 'lucide-react';
-import AtlasView from './components/AtlasView';
-import ExamView from './components/ExamView';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Network, Clock, X, ArrowRight } from 'lucide-react';
 
 type ViewState = 'atlas' | 'compare' | 'exam' | 'builder';
 
@@ -221,12 +220,7 @@ function NavItem({ icon, label, active, onClick }: { icon: React.ReactNode, labe
 // ==========================================
 // File: src/components/AtlasView.tsx
 // ==========================================
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ATLA_GRAPH, ConceptNode } from '../data/atlasGraph';
-import { X, ArrowRight } from 'lucide-react';
-
-export default function AtlasView() {
+function AtlasView() {
   const [selectedNode, setSelectedNode] = useState<ConceptNode | null>(null);
 
   const edges = Object.values(ATLA_GRAPH).flatMap(node => 
@@ -345,8 +339,6 @@ export default function AtlasView() {
 // ==========================================
 // File: src/components/ExamView.tsx
 // ==========================================
-import React, { useState, useEffect } from 'react';
-
 const EXAM_QUESTIONS = [
   "Explain the 'speculative' method that Hegel employs to determine the nature of right. How does he connect thinking, willing, and genuine freedom?",
   "Why does Hegel start with property rights, and how do they involve thinking (making them not merely 'natural')? Include his views on slavery and the inalienable right to life.",
@@ -356,7 +348,7 @@ const EXAM_QUESTIONS = [
   "Explain the puzzle of why M-C-M' leads to the growth of capital. Provide the explanation in terms of the capitalist's purchase of labor power as a commodity."
 ];
 
-export default function ExamView() {
+function ExamView() {
   const [started, setStarted] = useState(false);
   const [selectedQs, setSelectedQs] = useState<number[]>([]);
   const [timeLeft, setTimeLeft] = useState(80 * 60); // 80 minutes constraint
